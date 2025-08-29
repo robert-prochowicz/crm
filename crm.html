@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Management CRM</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+        }
+        .navbar {
+            background-color: #003366;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #007bff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .stat-card h3 {
+            margin-top: 0;
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            color: #003366;
+        }
+        .trend {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        .trend.up {
+            color: #28a745;
+        }
+        .trend.down {
+            color: #dc3545;
+        }
+        .customers-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .refresh-data {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .btn:hover {
+            background-color: #0069d9;
+        }
+        .last-updated {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        .status-message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Global Bank Wealth Management</div>
+        <div class="user-info">
+            <span>Sales Representative</span>
+            <div class="user-avatar">SR</div>
+        </div>
+    </div>
+    
+    <main>
+        <h2>Dashboard</h2>
+        <div class="dashboard">
+            <div class="stat-card">
+                <h3>Daily Calls</h3>
+                <div class="stat-value">42</div>
+                <div class="trend up">
+                    ↑ 12% from yesterday
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Conversion Rate</h3>
+                <div class="stat-value">18.5%</div>
+                <div class="trend up">
+                    ↑ 2.3% from last week
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>New Investments</h3>
+                <div class="stat-value">$1.2M</div>
+                <div class="trend up">
+                    ↑ 5% from last month
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Avg. Investment Size</h3>
+                <div class="stat-value">$85K</div>
+                <div class="trend down">
+                    ↓ 3% from last month
+                </div>
+            </div>
+        </div>
+        
+        <div class="customers-section">
+            <div class="section-header">
+                <h2>Customers Waiting for Call</h2>
+                <div class="refresh-data">
+                    <button class="btn" id="refreshBtn">Refresh Data</button>
+                </div>
+            </div>
+            <div class="last-updated" id="lastUpdated"></div>
+            <div id="statusMessage"></div>
+            
+            <table id="customerTable">
+                <thead>
+                    <tr>
+                        <th>Account ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Phone</th>
+                        <th>State</th>
+                        <th>Last Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="customerTableBody">
+                    <tr>
+                        <td colspan="7" style="text-align: center;">
+                            <div class="loader"></div>
+                            Loading customer data...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        // S3 URL for the CSV file
+        const csvFileUrl = 'https://mobilecloud.s3.amazonaws.com/webapps/AB_CRM/wealth_management_customers_short.csv';
+        
+        // Sample customer data as fallback
+        const fallbackCustomers = [
+            {
+                timestamp: "2025-08-29 18:19:31",
+                accountId: "70711985",
+                firstName: "Kenneth",
+                lastName: "Gutierrez",
+                age: "60",
+                phone: "(280) 302-7847",
+                state: "WI"
+            },
+            {
+                timestamp: "2025-08-29 18:19:30",
+                accountId: "70711981",
+                firstName: "Robert",
+                lastName: "Prochowicz",
+                age: "35",
+                phone: "(280) 302-7841",
+                state: "CA"
+            },
+            {
+                timestamp: "2025-08-29 17:45:22",
+                accountId: "70711982",
+                firstName: "Maria",
+                lastName: "Garcia",
+                age: "42",
+                phone: "(280) 302-7842",
+                state: "TX"
+            },
+            {
+                timestamp: "2025-08-29 16:32:15",
+                accountId: "70711983",
+                firstName: "James",
+                lastName: "Wilson",
+                age: "51",
+                phone: "(280) 302-7843",
+                state: "NY"
+            }
+        ];
+
+        // Load customer data when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCustomerData();
+            
+            // Set up refresh button
+            document.getElementById('refreshBtn').addEventListener('click', function() {
+                loadCustomerData();
+            });
+        });
+        
+        function loadCustomerData() {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.innerHTML = '';
+            
+            // Display loading indicator
+            document.getElementById('customerTableBody').innerHTML = `
+                <tr>
+                    <td colspan="7" style="text-align: center;">
+                        <div class="loader"></div>
+                        Loading customer data...
+                    </td>
+                </tr>
+            `;
+            
+            // Fetch the CSV file from S3
+            fetch(csvFileUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to load CSV file (Status: ${response.status})`);
+                    }
+                    return response.text();
+                })
+                .then(csvText => {
+                    const customers = parseCSV(csvText);
+                    displayCustomers(customers);
+                    showSuccessMessage('Customer data loaded successfully from S3.');
+                })
+                .catch(error => {
+                    console.error('Error loading CSV file from S3:', error);
+                    showErrorMessage(`Could not load data from S3: ${error.message}. Using fallback data instead.`);
+                    displayCustomers(fallbackCustomers);
+                })
+                .finally(() => {
+                    // Update last refreshed time
+                    const now = new Date();
+                    document.getElementById('lastUpdated').textContent = 
+                        `Last updated: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+                });
+        }
+        
+        function showErrorMessage(message) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.className = 'status-message status-error';
+            statusMessage.textContent = message;
+        }
+        
+        function showSuccessMessage(message) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.className = 'status-message status-success';
+            statusMessage.textContent = message;
+        }
+        
+        function parseCSV(text) {
+            const lines = text.trim().split('\n');
+            const customers = [];
+            let currentCustomer = {};
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line.startsWith('timestamp:')) {
+                    if (Object.keys(currentCustomer).length > 0) {
+                        customers.push(currentCustomer);
+                    }
+                    currentCustomer = {};
+                    currentCustomer.timestamp = line.replace('timestamp:', '').trim();
+                } else if (line.startsWith('account_id:')) {
+                    currentCustomer.accountId = line.replace('account_id:', '').trim();
+                } else if (line.startsWith('first_name:')) {
+                    currentCustomer.firstName = line.replace('first_name:', '').trim();
+                } else if (line.startsWith('last_name:')) {
+                    currentCustomer.lastName = line.replace('last_name:', '').trim();
+                } else if (line.startsWith('age:')) {
+                    currentCustomer.age = line.replace('age:', '').trim();
+                } else if (line.startsWith('phone:')) {
+                    currentCustomer.phone = line.replace('phone:', '').trim();
+                } else if (line.startsWith('state:')) {
+                    currentCustomer.state = line.replace('state:', '').trim();
+                }
+            }
+            
+            if (Object.keys(currentCustomer).length > 0) {
+                customers.push(currentCustomer);
+            }
+            
+            // Sort by timestamp (newest first)
+            customers.sort((a, b) => {
+                return new Date(b.timestamp) - new Date(a.timestamp);
+            });
+            
+            return customers;
+        }
+        
+        function displayCustomers(customers) {
+            const tableBody = document.getElementById('customerTableBody');
+            tableBody.innerHTML = '';
+            
+            if (customers.length === 0) {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.setAttribute('colspan', '7');
+                cell.style.textAlign = 'center';
+                cell.textContent = 'No customer data available';
+                row.appendChild(cell);
+                tableBody.appendChild(row);
+                return;
+            }
+            
+            customers.forEach(customer => {
+                const row = document.createElement('tr');
+                
+                // Account ID
+                const idCell = document.createElement('td');
+                idCell.textContent = customer.accountId || '-';
+                row.appendChild(idCell);
+                
+                // Name
+                const nameCell = document.createElement('td');
+                nameCell.textContent = `${customer.firstName || ''} ${customer.lastName || ''}`;
+                row.appendChild(nameCell);
+                
+                // Age
+                const ageCell = document.createElement('td');
+                ageCell.textContent = customer.age || '-';
+                row.appendChild(ageCell);
+                
+                // Phone
+                const phoneCell = document.createElement('td');
+                phoneCell.textContent = customer.phone || '-';
+                row.appendChild(phoneCell);
+                
+                // State
+                const stateCell = document.createElement('td');
+                stateCell.textContent = customer.state || '-';
+                row.appendChild(stateCell);
+                
+                // Timestamp
+                const timeCell = document.createElement('td');
+                timeCell.textContent = formatDate(customer.timestamp);
+                row.appendChild(timeCell);
+                
+                // Actions
+                const actionsCell = document.createElement('td');
+                const callBtn = document.createElement('button');
+                callBtn.className = 'btn';
+                callBtn.textContent = 'Call Now';
+                callBtn.addEventListener('click', () => {
+                    alert(`Calling ${customer.firstName} ${customer.lastName} at ${customer.phone}`);
+                });
+                actionsCell.appendChild(callBtn);
+                row.appendChild(actionsCell);
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleString();
+            } catch (e) {
+                return dateString;
+            }
+        }
+    </script>
+</body>
+</html>
