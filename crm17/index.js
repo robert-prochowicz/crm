@@ -11,7 +11,7 @@ const CUSTOMERS = [
   { timestamp: '2025-08-29 14:02:51', account_id: 89012345, first_name: 'Michael', last_name: 'Taylor', age: 33, phone: '(303) 456-7890', state: 'CO' },
   { timestamp: '2025-08-29 13:33:14', account_id: 23456789, first_name: 'Mary', last_name: 'Anderson', age: 71, phone: '(617) 901-2345', state: 'MA' },
   { timestamp: '2025-08-29 11:05:30', account_id: 54321098, first_name: 'David', last_name: 'Thomas', age: 29, phone: '(404) 567-8901', state: 'GA' },
-  { timestamp: '2025-08-29 10:15:22', account_id: 98765432, first_name: 'Susan', last_name: 'Jackson', age: 55, phone: '(305) 123-4567', state: 'FL' }
+  { timestamp: '2025-08-29 10:15:22', account_id: 98765432, first_name: 'Susanx', last_name: 'Jackson', age: 55, phone: '(305) 123-4567', state: 'FL' }
 ];
 
 // --- Component: StatCard ---
