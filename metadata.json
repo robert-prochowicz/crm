@@ -1,0 +1,5 @@
+{
+  "name": "Wealth Management CRM",
+  "description": "A CRM dashboard for a bank's wealth management department to track customer calls and department performance. Users can upload a CSV file of customers to call.",
+  "requestFramePermissions": []
+}
