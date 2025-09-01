@@ -1,0 +1,5 @@
+{
+  "name": "Wealth Management CRM",
+  "description": "A CRM application for a bank's wealth management department, designed to help sales representatives manage customer calls and track department statistics. The interface is inspired by Salesforce for a professional and familiar user experience.",
+  "requestFramePermissions": []
+}
