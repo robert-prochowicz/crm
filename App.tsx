@@ -1,8 +1,8 @@
 
 import React from 'react';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import Dashboard from './components/Dashboard';
+import Sidebar from './components/Sidebar.tsx';
+import Header from './components/Header.tsx';
+import Dashboard from './components/Dashboard.tsx';
 
 const App: React.FC = () => {
   return (

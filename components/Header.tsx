@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { SearchIcon, BellIcon } from './Icons';
+import { SearchIcon, BellIcon } from './Icons.tsx';
 
 const Header: React.FC = () => {
   return (

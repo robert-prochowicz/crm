@@ -1,10 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import { Customer } from '../types';
-import { fetchCustomers } from '../services/csvService';
-import StatCard from './StatCard';
-import CustomerTable from './CustomerTable';
-import { PhoneIcon, ChartPieIcon, CurrencyDollarIcon, UserPlusIcon } from './Icons';
+import { Customer } from '../types.ts';
+import { fetchCustomers } from '../services/csvService.ts';
+import StatCard from './StatCard.tsx';
+import CustomerTable from './CustomerTable.tsx';
+import { PhoneIcon, ChartPieIcon, CurrencyDollarIcon, UserPlusIcon } from './Icons.tsx';
 
 const Dashboard: React.FC = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);

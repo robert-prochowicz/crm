@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Customer, InvestmentPropensity } from '../types';
-import { PhoneIcon } from './Icons';
+import { Customer, InvestmentPropensity } from '../types.ts';
+import { PhoneIcon } from './Icons.tsx';
 
 interface CustomerTableProps {
   customers: Customer[];

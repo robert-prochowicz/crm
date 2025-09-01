@@ -1,4 +1,4 @@
-import { Customer } from '../types';
+import { Customer } from '../types.ts';
 
 // The original URL might be blocked by CORS policy on the S3 bucket.
 // Using a proxy is a common workaround for client-side applications to fetch data from servers without open CORS headers.

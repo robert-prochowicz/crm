@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { HomeIcon, UsersIcon, ChartBarIcon, CogIcon } from './Icons';
+import { HomeIcon, UsersIcon, ChartBarIcon, CogIcon } from './Icons.tsx';
 
 const Sidebar: React.FC = () => {
   return (
